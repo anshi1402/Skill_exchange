@@ -1,0 +1,481 @@
+================================================================================
+COMMUNITY SKILL EXCHANGE - COMPLETE PROJECT TECHNICAL SPECIFICATION & MANUAL
+================================================================================
+Platform Name  : Community Skill Exchange (CSE)
+Tagline        : Learn • Share • Connect • Grow
+Architecture   : Hybrid Serverless Full-Stack (Vanilla JS SPA + Node/Express + MongoDB Atlas)
+Hosting/Deploy : Vercel Cloud Platform
+Date           : October 2026
+================================================================================
+
+
+1. EXECUTIVE SUMMARY & PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+Community Skill Exchange is a collaborative, peer-to-peer knowledge sharing and
+educational matchmaking network. The platform connects students, working 
+professionals, and independent learners based on mutual, complementary skills.
+Instead of relying on traditional paid courses or one-way tutorials, users exchange
+their real-world expertise (e.g., teaching Python in return for learning UI/UX
+Design in Figma).
+
+The platform features an intelligent bidirectional matchmaking algorithm, an
+interactive Pomodoro learning session timer, dynamic goal tracking with milestones,
+gamified achievement streaks, analytical data dashboards via Chart.js, and a hybrid
+data architecture combining zero-latency browser LocalStorage with cloud MongoDB 
+Atlas synchronization.
+
+
+2. COMPLETE TECHNOLOGY STACK
+--------------------------------------------------------------------------------
+A. Frontend Layer:
+   • HTML5: Semantic markup, accessible structures, dynamic modal mount points,
+     and single-page application (SPA) layout containers.
+   • Vanilla CSS3: Zero bloated third-party CSS frameworks. Built with a custom,
+     production-grade design system:
+     - CSS Custom Properties (Variables) for full Light and Dark theme adaptation.
+     - Curated Emerald Green aesthetic (#059669 / #047857) with neutral slate tones.
+     - Responsive Flexbox and multi-column CSS Grid layouts with mobile breakpoints.
+     - Micro-animations, backdrop-blur glassmorphism headers, and smooth transitions.
+   • Vanilla JavaScript (ES6+):
+     - Single Page Application (SPA) architecture with client-side dynamic view router.
+     - Component-driven DOM rendering with efficient element reconciliation.
+     - Event delegation for global search shortcuts (Ctrl/Cmd+K) and interactive modals.
+     - Pure mathematical calculation engines for matchmaking, streaks, and analytics.
+   • Lucide Icons (CDN): Modern, crisp vector iconography for intuitive UX.
+   • Chart.js (v4 CDN): High-performance HTML5 Canvas data visualizations.
+
+B. Client Storage & Session Management:
+   • LocalStorage: Complete client-side caching of users, skills, goals, sessions,
+     connections, achievements, and UI preferences for instant offline capability.
+   • SessionStorage: Secure active session handling ('cse_active_session') ensuring
+     users are routed to the standard Sign In page on first load or after logging out.
+
+C. Backend API & Server Runtime:
+   • Node.js (v20+ Runtime): High-performance asynchronous JavaScript engine.
+   • Express.js (v4): Robust REST API serving endpoints, handling JSON payloads,
+     managing CORS cross-origin requests, and delivering static frontend assets.
+   • Mongoose (v8 ODM): Schema modeling, data validation, and optimized MongoDB
+     driver connection pooling.
+   • Dotenv: Environment variable isolation (.env).
+   • Nodemon: Development file-watcher and auto-restart tool.
+
+D. Database Layer:
+   • MongoDB Atlas: Multi-cloud distributed NoSQL document database hosting 
+     collections for users, skills, goals, activities, connections, and badges.
+
+E. DevOps & Deployment:
+   • Vercel: Serverless deployment configured via 'vercel.json' using '@vercel/node',
+     with custom asset bundling and automatic serverless connection reuse.
+   • Git & GitHub: Version control repository with automated Vercel CI/CD pipeline.
+
+
+3. COMPLETE BREAKDOWN OF PAGES & MODULES
+--------------------------------------------------------------------------------
+The application is structured into 14 distinct functional modules:
+
+[01] LANDING & AUTHENTICATION MODULE (Landing View)
+     • Clean, standard web authentication card with tab toggle (Sign In / Sign Up).
+     • Sign In Form:
+       - Email Address and Password fields.
+       - "Remember Me" preference and "Forgot password" helper.
+       - "Sign In" button with authentication against registered records.
+       - Quick 1-click test fill helper for testing existing user profiles.
+       - Toggle link to "Don't have an account? Sign up".
+     • Sign Up Form:
+       - Full Name, Email Address, Password.
+       - Role Selector (Student / Professional) and Institution / Location.
+       - Skill You Can Teach and Skill You Want to Learn fields.
+       - "Create Account" button that creates the user in storage, auto-syncs to
+         MongoDB, logs the user in, and immediately opens the dashboard.
+       - Toggle link to "Already have an account? Sign In".
+     • Hero Section: Value proposition, call-to-action buttons, platform stats.
+     • How It Works Section: 5-step interactive workflow cards.
+     • Popular Skills Chips: Quick-browse tags across high-demand domains.
+
+[02] DASHBOARD (Page: 'dashboard')
+     • Personalized Greeting: Dynamic welcome message reflecting user name & time of day.
+     • 5 Real-Time KPI Cards:
+       1. Skills Offered (Total count of skills taught by the user).
+       2. Skills Learning (Total count of skills user is pursuing).
+       3. Active Goals (Number of ongoing learning milestones).
+       4. Current Streak (Consecutive days of logged learning with 🔥 icon).
+       5. Learning Hours (Aggregated total hours logged across all sessions).
+     • Overall Progress Circle: Dynamically calculated from goal completion percentage.
+     • Weekly Learning Activity Bar Chart: Chart.js visualization of hours logged per day.
+     • Current Learning Goals Preview: Top ongoing goals with progress bars.
+     • Recommended Learning Partners: Ranked peer cards with mutual match percentages.
+     • Quick Actions: One-click buttons to "Log Session", "Add Skill", "Create Goal".
+     • Recent Activities Stream: Live feed of recently completed learning events.
+
+[03] MY SKILLS CATALOG (Page: 'skills')
+     • Dual-Section Layout:
+       - Section A: "Skills I Can Teach": Cards showing skill title, category,
+         proficiency level (Beginner, Intermediate, Advanced, Expert), experience
+         notes, endorsements count, and average rating.
+       - Section B: "Skills I Want to Learn": Cards showing skill title, category,
+         current proficiency, target level, priority (Low, Medium, High), and progress.
+     • Full CRUD Operations: Interactive Add Skill modal, Edit Skill modal, and
+       confirmation Delete modal.
+
+[04] LEARNING GOALS & ROADMAPS (Page: 'goals')
+     • Goal Creation Wizard: Title, category, target hours, deadline date, priority.
+     • Interactive Milestone Checklists: Sub-tasks that advance the goal's percentage.
+     • Visual Status Indicators: Color-coded progress bars (In Progress / Completed).
+     • Goal Filter Controls: Filter by Active, Completed, or Priority level.
+
+[05] ACTIVITIES & POMODORO TIMER (Page: 'activities')
+     • Live Interactive Study Timer:
+       - Pomodoro-style clock with Start, Pause, and Reset controls.
+       - Dynamic second-by-second countdown with visual pulse animation.
+       - "Save Session" button that automatically transfers timer duration into
+         a new logged learning session.
+     • Manual Session Logger Modal:
+       - Select partner/peer from connections or community.
+       - Select associated skill.
+       - Enter session duration (minutes), date, and reflection notes.
+     • Chronological Activity Log: Filterable table of past exchange sessions with
+       peer names, duration, timestamps, and notes.
+
+[06] PROGRESS & MASTERY TRACKER (Page: 'progress')
+     • Streak Flame Header: Displays consecutive daily streak count.
+     • Category Mastery Breakdown: Progress bars showing proficiency by skill category.
+     • Weekly Comparison: Current week hours vs. previous week hours.
+     • Milestone Completion Badges: Visual recognition for hitting hourly milestones.
+
+[07] ANALYTICS & INSIGHTS (Page: 'analytics')
+     • Four Interactive Chart.js Visualizations:
+       1. Learning Hours by Category (Horizontal/Vertical Bar Chart).
+       2. Weekly Learning Trends (Smooth Curved Line Chart).
+       3. Teaching vs. Learning Ratio (Doughnut Chart).
+       4. Skill Proficiency Matrix (Radar / Multi-Bar Chart).
+     • Analytical KPI Summary: Average session length, most active learning day,
+       and top taught skill.
+
+[08] DISCOVER SKILLS (Page: 'discover')
+     • Global Catalog Search: Typeahead search filtering across 7 core skill domains:
+       (Programming, Design, Communication, Media, Content, Marketing, Data & AI).
+     • Dual Search Perspective:
+       - "Find Teachers / Mentors": Shows community members who can teach the skill.
+       - "Find Learners / Peers": Shows community members seeking that skill.
+     • Member Card Details: Name, institution, avatar, proficiency, match score,
+       and direct "Connect" / "View Profile" action buttons.
+
+[09] FIND PARTNERS & SMART MATCHMAKING (Page: 'partners')
+     • Intelligent Compatibility Engine: Ranks the entire community network against
+       the active user's profile.
+     • Compatibility Percentage Score: Highlighting mutual synergy (e.g., "94% Match:
+       They teach what you want to learn, and want to learn what you teach").
+     • Complementary Skill Tags: Shows exact overlapping skills.
+
+[10] COMMUNITY DIRECTORY (Page: 'community')
+     • Public Member Directory: Browse all registered peers.
+     • Filter by Role (Student, Professional), Institution, and Location.
+     • Direct "Send Connection Request" triggers.
+
+[11] CONNECTIONS & COLLABORATIONS (Page: 'connections')
+     • Pending Requests Tab: Review incoming exchange requests with Accept or Decline.
+     • Connected Partners Tab: List of confirmed learning partners with quick links
+       to schedule a session or view mutual skills.
+
+[12] RECOMMENDATIONS ENGINE (Page: 'recommendations')
+     • Algorithmic suggestions based on user goals, current skill gaps, and community
+       trends.
+     • "Skills to Expand Your Profile": Suggested next skills based on current taxonomy.
+     • "Top Recommended Mentors": Highest-rated peers in your interest categories.
+
+[13] ACHIEVEMENTS & GAMIFICATION (Page: 'achievements')
+     • Dynamic Badge System evaluating real-time criteria:
+       - "First Exchange": Logged first learning activity.
+       - "Streak Master": Maintained a 7-day learning streak.
+       - "Dedicated Learner": Completed over 10 hours of study.
+       - "Skill Pioneer": Added skills across 3 different categories.
+       - "Century Club": Logged 100+ total hours.
+     • Locked vs. Unlocked Visual States with unlock timestamps and XP progress.
+
+[14] PROFILE & SETTINGS MODULE (Pages: 'profile' & 'settings')
+     • Profile Editor: Full name, role, institution, bio, location, interest tags.
+     • Theme Switcher: Light Mode / Dark Mode toggle with persistent memory.
+     • Data Management Suite:
+       - "Export Full Backup (JSON)": Complete application state backup.
+       - "Export User Data (JSON)": Individual profile, skills, and logs export.
+       - "Export Activities (CSV)": Spreadsheets of logged learning sessions.
+       - "Import Backup": Restore JSON backup file into browser storage.
+     • Standard Log Out: Terminates active session, clears credentials, and returns
+       cleanly to the Sign In page.
+
+
+4. THE HARDEST PARTS TO IMPLEMENT & TECHNICAL CHALLENGES SOLVED
+--------------------------------------------------------------------------------
+During development, several complex engineering challenges were encountered
+and systematically resolved:
+
+CHALLENGE 1: BIDIRECTIONAL MUTUAL MATCHMAKING ALGORITHM ('js/matching.js')
+• Why It Was Hard:
+  Standard search only performs simple one-way filtering (e.g. "who teaches Python?").
+  True skill exchange requires bidirectional matching: User A must teach what User B
+  wants to learn, AND User B must teach what User A wants to learn. In addition,
+  fallback one-way matching must assign meaningful weighted scores based on skill
+  proficiency levels, user ratings, and shared interest domains.
+• Solution:
+  Designed a multi-factor scoring formula:
+  - Direct Mutual Match (User A teaches what User B wants AND vice versa): +50 points.
+  - Partial Match (One-way mentor or peer alignment): +25 points per skill.
+  - Category Alignment (Overlapping interest domains): +10 points.
+  - Rating & Experience Multiplier: Weighted bonus based on peer ratings.
+  The algorithm normalizes scores to a 0–100% compatibility rating and sorts
+  recommended partners dynamically in real time.
+
+CHALLENGE 2: HYBRID DUAL-PERSISTENCE ARCHITECTURE (LocalStorage + MongoDB Atlas)
+• Why It Was Hard:
+  Pure client-side LocalStorage provides instantaneous 0ms page loads and works 
+  offline, but does not persist across different computers or devices. Pure server-side
+  MongoDB requires network calls on every user interaction, introducing latency and
+  breaking when offline.
+• Solution:
+  Engineered a hybrid bridge layer ('js/mongodb-client.js'):
+  - All UI reads and writes execute immediately against LocalStorage for instant,
+    flicker-free UI response.
+  - In the background, when MongoDB Atlas is connected, user registrations, skill
+    updates, and logged sessions are asynchronously pushed to the MongoDB REST API.
+  - Provided bulk bidirectional sync ('/api/sync/push' and '/api/sync/pull') so data
+    can be imported or synchronized seamlessly to the cloud.
+
+CHALLENGE 3: WINDOWS NODE.JS DNS SRV RESOLUTION WITH MONGODB ATLAS
+• Why It Was Hard:
+  On Windows operating systems, Node.js uses local ISP DNS resolvers by default.
+  When resolving MongoDB Atlas connection URIs starting with 'mongodb+srv://',
+  local Windows DNS lookups frequently fail with 'querySrv ECONNREFUSED' errors,
+  causing MongoDB to stay offline even when internet connectivity and credentials
+  are 100% correct.
+• Solution:
+  Implemented automated public DNS fallback at the very top of 'server.js' and
+  'config/db.js' before any network requests are made:
+  ```javascript
+  const dns = require('dns');
+  try {
+      dns.setServers(['8.8.8.8', '1.1.1.1']);
+      if (dns.setDefaultResultOrder) {
+          dns.setDefaultResultOrder('ipv4first');
+      }
+  } catch (e) {}
+  ```
+  This forces Node.js to use Google and Cloudflare DNS resolvers, resolving Atlas
+  SRV cluster records reliably on all Windows machines.
+
+CHALLENGE 4: SERVERLESS LIFECYCLE & COLD-START OPTIMIZATION ON VERCEL
+• Why It Was Hard:
+  Traditional Express apps run as persistent, long-running daemon servers. On Vercel,
+  each route executes inside short-lived Serverless Functions that spin up on demand
+  (cold starts) and freeze when idle. If an incoming API request arrives before the
+  MongoDB connection is established, standard middleware fails with timeout errors.
+  Furthermore, opening a new database connection on every function invocation quickly
+  exhausts MongoDB Atlas connection pool limits.
+• Solution:
+  - Cached the active Mongoose connection globally ('mongoose.connection.readyState === 1').
+    If a warm serverless container is reused, the connection is instantly reused.
+  - Updated the API middleware ('checkDBConnection') and health status route to
+    explicitly 'await connectDB()' during cold starts, ensuring requests never fail
+    due to asynchronous race conditions.
+  - Configured 'vercel.json' with 'includeFiles' to ensure static HTML, CSS, and JS
+    files are properly bundled into the serverless deployment package.
+
+CHALLENGE 5: SINGLE-PAGE APPLICATION (SPA) LIFECYCLE & CHART MEMORY MANAGEMENT
+• Why It Was Hard:
+  Without frameworks like React or Vue, routing between 10+ pages in Vanilla JS
+  requires manual DOM mounting. Chart.js binds to HTML5 '<canvas>' elements. If an
+  evaluator navigates from Dashboard to Analytics and back to Dashboard, creating a
+  new Chart instance over an un-destroyed canvas causes memory leaks and console
+  errors ("Canvas is already in use. Chart with ID '0' must be destroyed").
+• Solution:
+  Created a centralized chart lifecycle manager in 'App.destroyCharts()'. Whenever
+  any page transition occurs, all active Chart.js instances stored in 'App.activeCharts'
+  are cleanly destroyed before new canvases are mounted, ensuring zero memory leaks
+  and smooth transitions.
+
+CHALLENGE 6: REAL-TIME STREAK CALCULATION & ACHIEVEMENTS EVALUATION ENGINE
+• Why It Was Hard:
+  Streak counting requires analyzing timestamps of logged learning sessions across
+  calendar days, taking into account timezone shifts, consecutive days, gaps, and
+  freezes. The achievement engine must reactively inspect user stats without
+  hardcoding badge states.
+• Solution:
+  Built 'AnalyticsEngine.calculateCurrentStreak(userId)' and 'AchievementsEngine.evaluateAll()':
+  - Normalizes session dates to midnight UTC.
+  - Scans backward day-by-day from the current date. If today has a session, streak begins
+    at 1; if yesterday has a session, it increments. The first missing day cleanly breaks
+    the streak.
+  - Achievement criteria (e.g. totalHours >= 10, streak >= 7) are evaluated after every
+    session log, unlocking badges with toast notifications.
+
+
+5. DATABASE SCHEMAS & MODELS (Mongoose / MongoDB)
+--------------------------------------------------------------------------------
+1. User Schema ('models/User.js'):
+   - id: String (Unique UUID / timestamp index)
+   - name: String (Full user name)
+   - email: String (Unique email address)
+   - userType: String ('Student' | 'Professional')
+   - institution: String (University / Company name)
+   - location: String (City / Country)
+   - bio: String (Personal introduction)
+   - avatarColor: String (Tailored palette class)
+   - avatarInitial: String (1–2 letter avatar abbreviation)
+   - joinedDate: String (YYYY-MM-DD)
+   - interests: [String] (Array of interest tags)
+   - availability: String ('Available' | 'Weekends' | 'Busy')
+   - stats: { sharesCompleted, sessionsCompleted, totalHours, streakDays }
+
+2. Skill Schema ('models/Skill.js'):
+   - id: String (Unique UUID)
+   - userId: String (Foreign key referencing User.id)
+   - type: String ('teach' | 'learn')
+   - name: String (Skill title, e.g. 'Python', 'UI/UX Design')
+   - category: String ('Programming' | 'Design' | 'Data & AI' | etc.)
+   - proficiency: String ('Beginner' | 'Intermediate' | 'Advanced' | 'Expert')
+   - experience: String (Notes on practical background)
+   - endorsements: Number (Community upvotes/ratings)
+
+3. Goal Schema ('models/Goal.js'):
+   - id: String (Unique UUID)
+   - userId: String (Foreign key referencing User.id)
+   - title: String (Goal headline)
+   - skill: String (Target skill)
+   - targetHours: Number (Goal duration target)
+   - targetDate: String (Deadline YYYY-MM-DD)
+   - priority: String ('Low' | 'Medium' | 'High')
+   - progress: Number (0 to 100 percentage)
+   - milestones: [{ title: String, completed: Boolean }]
+
+4. Activity Schema ('models/Activity.js'):
+   - id: String (Unique UUID)
+   - userId: String (User who logged the session)
+   - partnerId: String (Collaborating peer)
+   - partnerName: String (Peer display name)
+   - skill: String (Skill exchanged)
+   - type: String ('teach' | 'learn')
+   - duration: Number (Minutes spent)
+   - date: String (Date of activity)
+   - notes: String (Key takeaways / reflection)
+
+5. Connection Schema ('models/Connection.js'):
+   - id: String (Unique UUID)
+   - senderId: String (User initiating connection)
+   - receiverId: String (Target recipient)
+   - status: String ('pending' | 'accepted' | 'rejected')
+
+6. Achievement Schema ('models/Achievement.js'):
+   - id: String (Unique identifier)
+   - userId: String (User earning the badge)
+   - badgeKey: String ('first_exchange', 'streak_master', etc.)
+   - unlockedAt: String (Timestamp of completion)
+
+7. Notification Schema ('models/Notification.js'):
+   - id: String (Unique UUID)
+   - userId: String (Recipient user)
+   - type: String ('connection', 'goal', 'achievement', 'system')
+   - message: String (Notification text)
+   - read: Boolean (Status)
+
+
+6. REST API ENDPOINTS SPECIFICATION
+--------------------------------------------------------------------------------
+Health & Status:
+• GET  /api/status               - Returns MongoDB connection status, host, & readyState.
+
+User Management:
+• GET  /api/users                - Returns list of all registered community users.
+• GET  /api/users/:id            - Returns a single user profile by ID.
+• POST /api/users                - Registers or updates a user profile.
+
+Skills Management:
+• GET  /api/skills               - Returns skill catalog (supports ?userId= & ?type= filters).
+• POST /api/skills               - Adds or updates a skill.
+• DELETE /api/skills/:id         - Removes a skill.
+
+Learning Goals:
+• GET  /api/goals                - Retrieves learning goals for a user.
+• POST /api/goals                - Creates or updates a goal.
+• DELETE /api/goals/:id          - Deletes a goal.
+
+Activities & Sessions:
+• GET  /api/activities           - Retrieves activity session logs.
+• POST /api/activities           - Records a newly completed learning session.
+
+Connections:
+• GET  /api/connections          - Lists connection relationships.
+• POST /api/connections          - Sends or updates a connection request.
+
+Data Synchronization:
+• POST /api/sync/push            - Bulk pushes browser LocalStorage collections into MongoDB.
+• GET  /api/sync/pull            - Pulls entire cloud database state into browser LocalStorage.
+
+
+7. PROJECT DIRECTORY STRUCTURE
+--------------------------------------------------------------------------------
+community-skill-exchange/
+├── index.html                   # Master SPA HTML entrypoint & layout shell
+├── server.js                    # Express HTTP server & Vercel serverless entrypoint
+├── vercel.json                  # Vercel deployment routing & static file bundling config
+├── package.json                 # Project dependencies and script declarations
+├── .env                         # Environment variables (MONGODB_URI, PORT)
+├── .env.example                 # Environment template for contributors
+├── .gitignore                   # Excludes node_modules, .env, and logs from Git
+├── README.md                    # Project documentation
+├── info.txt                     # Comprehensive technical specification document
+├── config/
+│   └── db.js                    # Resilient Mongoose connection manager with DNS fix
+├── models/
+│   ├── User.js                  # User profile schema
+│   ├── Skill.js                 # Skill catalog schema
+│   ├── Goal.js                  # Learning goal & milestone schema
+│   ├── Activity.js              # Learning session history schema
+│   ├── Connection.js            # Peer-to-peer connection schema
+│   ├── Achievement.js           # Gamified badge schema
+│   └── Notification.js          # In-app notifications schema
+├── routes/
+│   └── api.js                   # Express REST API endpoints & serverless middleware
+├── scripts/
+│   └── seed.js                  # Database seeder for initializing MongoDB Atlas
+├── css/
+│   ├── style.css                # Core design system tokens, variables, & typography
+│   ├── components.css           # Cards, buttons, forms, modals, badges, & toasts
+│   └── responsive.css           # Mobile/tablet breakpoints & slide-out navigation
+└── js/
+    ├── app.js                   # Master SPA Controller, Router, UI state, & Auth flow
+    ├── storage.js               # LocalStorage abstraction layer & CRUD helpers
+    ├── data.js                  # Default community network peers & skill taxonomy
+    ├── matching.js              # Mutual compatibility & matchmaking algorithm
+    ├── analytics.js             # Chart.js visualization managers & streak engine
+    ├── achievements.js          # Gamification badge rules & evaluation criteria
+    ├── recommendations.js       # AI-inspired heuristic recommendations engine
+    ├── mongodb-client.js        # Background cloud sync bridge & port resolution
+    └── utils.js                 # Toast notifications, modal helpers, and DOM utilities
+
+
+8. LOCAL EXECUTION & VERCEL DEPLOYMENT QUICK REFERENCE
+--------------------------------------------------------------------------------
+Local Development:
+1. Install dependencies:
+   npm install
+2. Configure '.env':
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mkqdz1f.mongodb.net/community_skill_exchange
+3. Seed sample data into MongoDB Atlas (Optional):
+   node scripts/seed.js
+4. Start local development server:
+   npm run dev
+5. Open in browser:
+   http://localhost:5000
+
+Vercel Cloud Deployment:
+1. Framework Preset   : Express (Auto-detected from package.json)
+2. Build Command      : Leave Disabled (OFF / Empty)
+3. Output Directory   : Leave Disabled (OFF / Empty)
+4. Environment Variable:
+   Key   : MONGODB_URI
+   Value : <Your MongoDB Atlas Connection String>
+5. Deploy & Verify:
+   Vercel bundles 'server.js' and static assets automatically. Live site launches
+   with instant cloud persistence and responsive mobile capability.
+================================================================================
+END OF TECHNICAL SPECIFICATION
+================================================================================
