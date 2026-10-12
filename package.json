@@ -1,0 +1,30 @@
+{
+  "name": "community-skill-exchange",
+  "version": "1.0.0",
+  "description": "A collaborative peer-to-peer skill exchange network with MongoDB integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "dev:watch": "node --watch --watch-path=server.js --watch-path=routes --watch-path=models --watch-path=config server.js",
+    "seed": "node scripts/seed.js"
+  },
+  "keywords": [
+    "skill-exchange",
+    "mongodb",
+    "express",
+    "nodejs",
+    "fullstack"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

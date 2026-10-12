@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Community Skill Exchange - Responsive Design Styles
+   Breakpoints for Desktop, Laptop, Tablet, and Mobile devices
+   ========================================================================== */
+
+/* Tablet & Mobile Layout (< 1024px) */
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 260px;
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+    }
+
+    .sidebar {
+        transform: translateX(-100%);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .top-header {
+        padding: 0 1.25rem;
+    }
+
+    .page-content {
+        padding: 1.25rem;
+    }
+
+    .search-box-wrapper {
+        max-width: 320px;
+    }
+
+    /* Overlay backdrop when mobile sidebar is open */
+    .sidebar-mobile-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(15, 23, 42, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 35;
+        display: none;
+    }
+
+    .sidebar-mobile-backdrop.active {
+        display: block;
+    }
+}
+
+/* Mobile Screens (< 768px) */
+@media (max-width: 768px) {
+    html {
+        font-size: 15px;
+    }
+
+    .top-header {
+        padding: 0 1rem;
+        height: 62px;
+    }
+
+    .header-left {
+        gap: 0.5rem;
+    }
+
+    .search-shortcut {
+        display: none;
+    }
+
+    .user-name-display, .user-role-display {
+        display: none;
+    }
+
+    .streak-label {
+        display: none;
+    }
+
+    .page-content {
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .timer-clock-display {
+        font-size: 2.75rem;
+    }
+
+    .modal-card {
+        max-height: 95vh;
+        margin: 0.5rem;
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+    }
+
+    .partner-card-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .partner-card-footer .btn {
+        width: 100%;
+    }
+
+    .toast-container {
+        right: 1rem;
+        bottom: 1rem;
+        width: calc(100% - 2rem);
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Small Mobile Screens (< 480px) */
+@media (max-width: 480px) {
+    .btn-lg {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 2rem !important;
+    }
+}

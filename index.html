@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Skill Exchange | Learn • Share • Connect • Grow</title>
+    <meta name="description" content="A collaborative skill exchange and learning network where students and professionals connect to trade skills, track goals, and maintain learning streaks.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- ==========================================================================
+         1. LANDING PAGE VIEW (Shown for first-time visitors / unauthenticated state)
+         ========================================================================== -->
+    <div id="landing-view" style="display: block;"></div>
+
+    <!-- ==========================================================================
+         2. MAIN APPLICATION APP VIEW (Logged in SPA shell)
+         ========================================================================== -->
+    <div id="app-view" class="app-container" style="display: none;">
+        
+        <!-- Mobile Sidebar Backdrop -->
+        <div id="sidebar-backdrop" class="sidebar-mobile-backdrop"></div>
+
+        <!-- Left Navigation Sidebar -->
+        <aside id="sidebar" class="sidebar" aria-label="Main Navigation">
+            <!-- Brand -->
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i data-lucide="shuffle"></i>
+                </div>
+                <div class="brand-info">
+                    <div class="brand-title">Skill Exchange</div>
+                    <div class="brand-subtitle">Community Network</div>
+                </div>
+            </div>
+
+            <!-- Navigation Sections -->
+            <nav class="sidebar-menu">
+                <!-- Core Dashboard -->
+                <ul class="nav-list">
+                    <li>
+                        <a class="nav-link active" data-page-target="dashboard" role="button">
+                            <i data-lucide="layout-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- LEARNING Section -->
+                <div>
+                    <div class="menu-section-label">Learning</div>
+                    <ul class="nav-list">
+                        <li>
+                            <a class="nav-link" data-page-target="skills" role="button">
+                                <i data-lucide="layers"></i>
+                                <span>My Skills</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="goals" role="button">
+                                <i data-lucide="target"></i>
+                                <span>Learning Goals</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="activities" role="button">
+                                <i data-lucide="clock"></i>
+                                <span>Activities & Timer</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="progress" role="button">
+                                <i data-lucide="trending-up"></i>
+                                <span>Progress</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="analytics" role="button">
+                                <i data-lucide="bar-chart-2"></i>
+                                <span>Analytics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- DISCOVER Section -->
+                <div>
+                    <div class="menu-section-label">Discover</div>
+                    <ul class="nav-list">
+                        <li>
+                            <a class="nav-link" data-page-target="discover" role="button">
+                                <i data-lucide="compass"></i>
+                                <span>Discover Skills</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="partners" role="button">
+                                <i data-lucide="users"></i>
+                                <span>Find Partners</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="community" role="button">
+                                <i data-lucide="globe"></i>
+                                <span>Community</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="connections" role="button">
+                                <i data-lucide="user-check"></i>
+                                <span>Connections</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="recommendations" role="button">
+                                <i data-lucide="sparkles"></i>
+                                <span>Recommendations</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ACHIEVEMENTS Section -->
+                <div>
+                    <div class="menu-section-label">Achievements</div>
+                    <ul class="nav-list">
+                        <li>
+                            <a class="nav-link" data-page-target="achievements" role="button">
+                                <i data-lucide="award"></i>
+                                <span>Achievements</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="history" role="button">
+                                <i data-lucide="history"></i>
+                                <span>History</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ACCOUNT Section -->
+                <div>
+                    <div class="menu-section-label">Account</div>
+                    <ul class="nav-list">
+                        <li>
+                            <a class="nav-link" data-page-target="profile" role="button">
+                                <i data-lucide="user"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" data-page-target="settings" role="button">
+                                <i data-lucide="settings"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Sidebar Footer Quick Action -->
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem;" onclick="App.openAddActivityModal()">
+                    <i data-lucide="plus-circle"></i> Log Session
+                </button>
+                <button type="button" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 0.82rem; margin-top: 0.4rem;" onclick="App.logout()">
+                    <i data-lucide="log-out"></i> Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <div class="main-wrapper">
+            <!-- Top Sticky Header -->
+            <header id="top-header" class="top-header">
+                <div class="header-left">
+                    <button type="button" id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                        <i data-lucide="menu"></i>
+                    </button>
+
+                    <!-- Global Search Box with Live Results Dropdown -->
+                    <div class="search-box-wrapper">
+                        <div class="search-input-container">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="global-search-input" class="search-input" placeholder="Search skills, peers, goals..." autocomplete="off">
+                            <span class="search-shortcut">⌘K</span>
+                        </div>
+                        <div id="search-dropdown" class="search-results-dropdown"></div>
+                    </div>
+                </div>
+
+                <!-- Header Right Actions -->
+                <div class="header-right">
+                    <!-- Streak Flame Indicator -->
+                    <div class="streak-indicator" data-page-target="progress" role="button" title="Your consecutive active learning streak">
+                        <span class="streak-flame">🔥</span>
+                        <span id="header-streak-count" class="streak-count">0 Days</span>
+                        <span class="streak-label">Streak</span>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button type="button" id="theme-toggle-btn" class="header-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+                        <i id="theme-toggle-icon" data-lucide="moon"></i>
+                    </button>
+
+
+                    <!-- Notifications Button with Count Badge -->
+                    <div style="position: relative;">
+                        <button type="button" id="notifications-btn" class="header-btn" title="Notifications" aria-label="Notifications">
+                            <i data-lucide="bell"></i>
+                            <span id="header-notif-badge" class="notification-badge" style="display: none;">0</span>
+                        </button>
+                        <!-- Notifications Drawer Dropdown -->
+                        <div id="notifications-drawer" class="search-results-dropdown" style="width: 320px; right: 0; left: auto;"></div>
+                    </div>
+
+                    <!-- User Menu Dropdown -->
+                    <div class="user-profile-menu">
+                        <button type="button" id="user-menu-btn" class="user-profile-button">
+                            <div id="header-user-avatar"></div>
+                            <div style="text-align: left;">
+                                <div id="header-user-name" class="user-name-display">Guest</div>
+                                <div id="header-user-role" class="user-role-display">Learner</div>
+                            </div>
+                            <i data-lucide="chevron-down" style="width: 16px; color: var(--text-muted);"></i>
+                        </button>
+
+                        <div id="user-dropdown-menu" class="search-results-dropdown" style="width: 220px; right: 0; left: auto;">
+                            <div style="padding: 0.5rem;">
+                                <div class="search-result-item" onclick="App.showPage('profile')">
+                                    <i data-lucide="user" style="width: 16px;"></i>
+                                    <span class="search-result-text">My Profile</span>
+                                </div>
+                                <div class="search-result-item" onclick="App.showPage('settings')">
+                                    <i data-lucide="settings" style="width: 16px;"></i>
+                                    <span class="search-result-text">Settings</span>
+                                </div>
+                                <div style="border-top: 1px solid var(--border-subtle); margin: 0.35rem 0;"></div>
+                                <div class="search-result-item" style="color: var(--accent-rose);" onclick="App.logout()">
+                                    <i data-lucide="log-out" style="width: 16px;"></i>
+                                    <span class="search-result-text">Log Out</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dynamic SPA Page Content Container -->
+            <main id="main-content-container" class="page-content" role="main"></main>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- ==========================================================================
+         JavaScript Application Scripts (Modular Vanilla JS)
+         ========================================================================== -->
+    <script src="js/storage.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/matching.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/recommendations.js"></script>
+    <script src="js/mongodb-client.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
