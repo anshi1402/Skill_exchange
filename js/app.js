@@ -1311,7 +1311,7 @@ const App = {
                         <p class="text-secondary" style="font-size: 0.95rem;">Set structured learning roadmaps, check off milestone achievements, and reach mastery.</p>
                     </div>
                     <button class="btn btn-primary" onclick="App.openAddGoalModal()">
-                        <i data-lucide="plus-circle"></i> Create New Goal
+                        <i data-lucide="plus-circle"></i> Create Learning Goal
                     </button>
                 </div>
 
@@ -1320,7 +1320,9 @@ const App = {
                         <div class="empty-state-icon"><i data-lucide="target"></i></div>
                         <h4 class="empty-state-title">No goals created yet</h4>
                         <p class="empty-state-desc">Establish structured learning goals to track your skill milestones effectively.</p>
-                        <button class="btn btn-primary" onclick="App.openAddGoalModal()">Create First Goal</button>
+                        <button class="btn btn-primary" onclick="App.openAddGoalModal()">
+                            <i data-lucide="plus-circle"></i> Create Learning Goal
+                        </button>
                     </div>
                 ` : `
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem;">
@@ -2879,7 +2881,7 @@ const App = {
                     <h3 class="modal-title">${prefill ? 'Customize Roadmap & Goal' : 'Create Learning Goal'}</h3>
                     <button class="modal-close-btn" onclick="Utils.closeModal('${modalId}')"><i data-lucide="x"></i></button>
                 </div>
-                <form onsubmit="App.saveGoalForm(event)">
+                <form onsubmit="App.saveGoalForm(event)" style="display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="form-label">Goal Title <span class="required">*</span></label>
@@ -2925,7 +2927,9 @@ const App = {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="Utils.closeModal('${modalId}')">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save Goal</button>
+                        <button type="submit" class="btn btn-primary" id="btn-create-learning-goal">
+                            <i data-lucide="plus-circle"></i> Create Learning Goal
+                        </button>
                     </div>
                 </form>
             </div>
@@ -2951,7 +2955,7 @@ const App = {
                     <h3 class="modal-title">Edit Learning Goal: ${Utils.escapeHTML(goal.title)}</h3>
                     <button class="modal-close-btn" onclick="Utils.closeModal('${modalId}')"><i data-lucide="x"></i></button>
                 </div>
-                <form onsubmit="App.saveEditGoalForm(event, '${goal.id}')">
+                <form onsubmit="App.saveEditGoalForm(event, '${goal.id}')" style="display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;">
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="form-label">Goal Title <span class="required">*</span></label>
